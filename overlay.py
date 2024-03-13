@@ -1,57 +1,44 @@
-from PySide6.QtWidgets import QWidget, QLineEdit, QTextEdit, QLabel
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLineEdit, QTextEdit, QLabel, QSizePolicy
+from PySide6.QtGui import QFont, QPalette, QColor,Qt
 
 import utils
 
 
 class TarkovItemTracker(QWidget):
-    """
-    The main window for the Tarkov Item Tracker application
-    """
-
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        xpos = 200
-        ypos = 150
-        window_width = 400
-        window_height = 250
-
-        self.setGeometry(xpos, ypos, window_width, window_height)
-        self.setFixedSize(window_width, window_height)
-
         self.setWindowTitle("Tarkov Item Tracker")
+        self.setMinimumSize(600, 400)
 
-        self.setup_text_edit()
-        self.setup_line_edit()
-        self.setup_labels()
+        # レイアウトの設定
+        main_layout = QVBoxLayout()
+        self.setLayout(main_layout)
 
-    def setup_text_edit(self):
-        """
-        Set up the QTextEdit widget for displaying results
-        """
-        self.text_edit = QTextEdit(self)
-        self.text_edit.setReadOnly(True)
-        self.text_edit.move(0, 50)
-        self.text_edit.resize(400, 175)
-        self.text_edit.setPlainText("Result will be displayed here.")
-
-    def setup_line_edit(self):
-        """
-        Set up the QLineEdit widget for entering item names
-        """
-        self.line_edit = QLineEdit(self)
-        self.line_edit.move(10, 10)
-        self.line_edit.resize(200, 25)
+        # 入力フィールド
+        self.line_edit = QLineEdit()
+        self.line_edit.setPlaceholderText("Enter item name...")
         self.line_edit.returnPressed.connect(self.handle_item_query)
+        main_layout.addWidget(self.line_edit)
 
-    def setup_labels(self):
-        """
-        Set up the QLabel widget for displaying instructions
-        """
-        self.input_label = QLabel(self)
-        self.input_label.setWordWrap(True)  # Enable automatic line wrapping
-        self.input_label.setText("Write the name of the item and press enter.")
-        self.input_label.move(250, 10)
+        # 結果表示エリア
+        self.text_edit = QTextEdit()
+        self.text_edit.setReadOnly(True)
+        font = QFont("Consolas", 10)
+        self.text_edit.setFont(font)
+        main_layout.addWidget(self.text_edit)
+
+        # 説明ラベル
+        self.label = QLabel("Write the name of the item and press Enter.")
+        font = QFont("Arial", 10)
+        self.label.setFont(font)
+        main_layout.addWidget(self.label)
+
+        # 背景色とテキストカラーの設定
+        palette = QPalette()
+        palette.setColor(QPalette.Window, QColor(53, 53, 53))
+        palette.setColor(QPalette.WindowText, Qt.white)
+        self.setPalette(palette)
 
     def handle_item_query(self):
         """
