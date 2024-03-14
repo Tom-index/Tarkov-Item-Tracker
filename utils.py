@@ -16,6 +16,7 @@ def run_query(item_name):
       items(name: "%s") {
         name
         lastLowPrice
+        avg24hPrice
         usedInTasks {
           name
           kappaRequired
