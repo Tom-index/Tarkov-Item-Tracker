@@ -19,12 +19,12 @@ Tarkov Item Tracker is a desktop application built with PySide6 that allows user
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/tarkov-item-tracker.git
+git clone https://github.com/Tom-index/Tarkov-Item-Tracker.git
 ```
 
 2. Navigate to the project directory:
 ```bash
-cd tarkov-item-tracker
+cd Tarkov-Item-Tracker
 ```
 
 3. Install the required dependencies:
